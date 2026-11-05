@@ -8,6 +8,7 @@ on:
       - "style.css"
       - "script.js"
       - "favicon.svg"
+      - "assets/**"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 
@@ -38,7 +39,7 @@ jobs:
           from pathlib import Path
           html = Path('index.html').read_text(encoding='utf-8')
           js = Path('script.js').read_text(encoding='utf-8')
-          for path in ('index.html', 'style.css', 'script.js', 'favicon.svg'):
+          for path in ('index.html', 'style.css', 'script.js', 'favicon.svg', 'assets/solsama-portrait.webp'):
               assert Path(path).is_file(), f'Missing asset: {path}'
           for anchor in ('id="projects"', 'id="about"', 'id="experience"', 'id="contact"'):
               assert anchor in html, f'Missing section: {anchor}'
@@ -46,6 +47,10 @@ jobs:
               assert link in html, f'Missing local reference: {link}'
           assert 'SolScribe' in js and 'tradeAssist AI' in js
           assert 'Hephzibah Onuh Momoh' in html
+          assert 'assets/solsama-portrait.webp' in html
+          image = Path('assets/solsama-portrait.webp').read_bytes()
+          assert image[:4] == b'RIFF' and image[8:12] == b'WEBP', 'Portrait is not a valid WebP'
+          assert len(image) < 120_000, 'Portrait exceeds website weight budget'
           assert 'script.js' in html
           print('Portfolio source checks passed')
           PY
@@ -53,11 +58,11 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html style.css script.js favicon.svg _site/
+          mkdir -p _site/assets
+          cp assets/solsama-portrait.webp _site/assets/
           touch _site/.nojekyll
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
