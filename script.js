@@ -1,8 +1,148 @@
 'use strict';
-const projects=[["Anything-to-Anything","A document conversion workspace with a Python/FastAPI backend, useful everyday file transformations and a lightweight browser interface.","product software","MVP · In development","Python · FastAPI · JavaScript","https://github.com/zibah04/anythingtoanything","Document SaaS","↔"],["NGX Trading Assistant","Rule-based Nigerian equities trading prototype with mock execution, SQLite and a Streamlit simulation dashboard. Live brokerage integration is not verified.","product software","Simulation only","Python · SQLite · Streamlit","https://github.com/zibah04/Ngx_trading_bot","Fintech research","↗"],["Sol IR Remote","Offline Android infrared remote for a DStv decoder. Experimental IR codes, a number keypad and an APK build workflow; standalone device validation is pending.","software","Unverified APK build","Android · Java · Infrared","https://github.com/zibah04/Sol-IR-Remote","Android utility","⌁"],["Market Price Comparison","Web demo for comparing foodstuff and everyday item prices across markets. Exploring how real local market data might power a useful service.","product software","Demo","HTML · CSS · JavaScript","https://github.com/zibah04/price","Local commerce","₦"],["Student Attendance System","Full-stack attendance website built and defended during SIWES industrial training. PHP backend and MySQL database; public repository not yet available.","education software","Built & defended","HTML · CSS · PHP · MySQL","","SIWES capstone","✓"],["Kowalski","Planned Windows troubleshooting companion for system-log analysis, understandable reports, issue history and carefully controlled repair actions.","product software","Concept","Windows · Diagnostics · Product design","","PC support tool","⏻"],["Commit Snapshot","A developer storytelling concept that would transform GitHub commits into digestible progress narratives and project histories.","software","Concept","GitHub API · Web · Storytelling","","Developer tool","⌘"],["VLC Movie Enhance","Experiment in real-time sharpening and video scaling for VLC movie playback. Custom Windows DLL remains uncompiled and unverified.","software","Prototype","Video processing · VLC","","Media utility","▶"],["Sol Desktop Pet","An original animated desktop companion character and sprite design, still awaiting a fully implemented distributable desktop application.","software","Design phase","Animation · Sprites · Interaction","","Creative app","☀"],["Vibrant Academy Class Website","HTML/CSS class website and teaching edition with fictional example biographies, used to help learners understand real web development.","education software","Teaching demo","HTML · CSS · Education","https://github.com/zibah04/vibrant-academy-ss2-studentslearner","Classroom project","✳"]];
+// Updated 2026-11-05 from role-specific CVs and verified repository/release status.
+// Project links are public; no full CV, phone number, student records or private source is published.
+const projects = [
+  [
+    "SolScribe",
+    "Offline-first Windows meeting and lecture transcription app with audio capture, editable transcripts, meeting minutes, study notes, revision cards, exports and recovery tools. v0.5.0 is a public unsigned beta; real-device acceptance testing is ongoing.",
+    "product software",
+    "Public beta · v0.5.0",
+    "Python · PySide6 · faster-whisper · SQLite",
+    "https://github.com/zibah04/Solscribe/releases/tag/v0.5.0-beta.1",
+    "Windows productivity",
+    "✎",
+    "Get Windows beta ↗"
+  ],
+  [
+    "Anything-to-Anything",
+    "FastAPI-powered file conversion app for documents, spreadsheets, images and PDFs, with local OCR, browser-friendly tools and a Docker deployment configuration. Public service not yet verified.",
+    "product software",
+    "Functional MVP · Testing",
+    "Python · FastAPI · JavaScript · OCR",
+    "https://github.com/zibah04/anythingtoanything",
+    "File conversion",
+    "↔",
+    "Explore source ↗"
+  ],
+  [
+    "tradeAssist AI",
+    "Nigerian equities research dashboard with historical signals, CSV data ingestion, next-bar backtests, a prediction journal and financial news summaries. Research only; no live orders or calibrated AI probabilities.",
+    "product software",
+    "Research prototype",
+    "Python · Streamlit · SQLite · Market data",
+    "https://github.com/zibah04/TradeAssist-Ai",
+    "Market research",
+    "↗",
+    "Explore source ↗"
+  ],
+  [
+    "Sol IR Remote",
+    "Offline Android infrared controller for a DStv HD 8S decoder, featuring tested source signals, a keypad and familiar channel/volume controls. APK builds successfully; end-to-end device testing is still needed.",
+    "software",
+    "APK built · Device test pending",
+    "Android · Java · Infrared",
+    "https://github.com/zibah04/Sol-IR-Remote",
+    "Android utility",
+    "⌁",
+    "Explore source ↗"
+  ],
+  [
+    "Market Price Comparison",
+    "A web experiment for comparing goods and foodstuff prices between markets. Both a simple HTML/CSS/JS demo and a richer frontend exist; regularly updated real-world pricing is not yet available.",
+    "product software",
+    "Web demo · Data pending",
+    "HTML · CSS · JavaScript · Web UI",
+    "https://github.com/zibah04/Pricecomparisonsite",
+    "Local commerce",
+    "₦",
+    "Explore source ↗"
+  ],
+  [
+    "NGX Trading Bot",
+    "Python trading-automation prototype with a mock broker, SQLite persistence and a Streamlit simulation interface. Broker adapters have not been verified for real-money trading.",
+    "software",
+    "Simulation only",
+    "Python · Streamlit · SQLite · Testing",
+    "https://github.com/zibah04/Ngx_trading_bot",
+    "Trading simulation",
+    "⇄",
+    "Explore source ↗"
+  ],
+  [
+    "Student Attendance System",
+    "Designed and defended a full-stack student attendance system during 2025 SIWES, including user interface, PHP backend and MySQL data model. Original source is not published here.",
+    "education software",
+    "Built & defended · 2025",
+    "HTML · CSS · PHP · MySQL",
+    "",
+    "SIWES capstone",
+    "✓"
+  ],
+  [
+    "Vibrant Academy — Teaching Edition",
+    "Beginner-friendly offline HTML and CSS teaching website, with responsive class pages, linked sample stories and a hands-on lesson plan. Uses fictional profiles instead of student information.",
+    "education software",
+    "Teaching demo",
+    "HTML · CSS · Accessibility",
+    "https://github.com/zibah04/vibrant-academy-ss2-studentslearner",
+    "Web education",
+    "✳",
+    "Explore source ↗"
+  ],
+  [
+    "Kowalski",
+    "Planned Windows diagnostics assistant to turn PC and system checks into clear explanations and cautious troubleshooting suggestions. No released application yet.",
+    "product software",
+    "Concept · Design",
+    "Windows · Diagnostics · UX",
+    "",
+    "PC support",
+    "⏻"
+  ],
+  [
+    "Commit Snapshot",
+    "Planned developer storytelling tool that turns GitHub commit history into a readable project timeline and progress summaries. Implementation is not yet verified.",
+    "software",
+    "Concept",
+    "GitHub API · Web · Developer tools",
+    "",
+    "Developer tools",
+    "⌘"
+  ],
+  [
+    "Sol Desktop Pet",
+    "Original animated desktop-companion concept with character design and sprite direction. Interactive Windows application is not yet available.",
+    "software",
+    "Design stage",
+    "Animation · Sprites · Desktop UI",
+    "",
+    "Creative software",
+    "☀"
+  ],
+  [
+    "VLC Movie Enhancer",
+    "Exploration of real-time sharpening and scaling for video playback. A reliable compiled VLC extension and measurable quality tests are still pending.",
+    "software",
+    "Technical exploration",
+    "Video · VLC · Image processing",
+    "",
+    "Media experimentation",
+    "▶"
+  ],
+  [
+    "WhatsApp Status Optimizer",
+    "New research concept for preparing videos that retain better perceived quality after WhatsApp Status recompression. Encoding experiments and a prototype are still ahead.",
+    "product software",
+    "Research concept",
+    "Video encoding · Compression · UX",
+    "",
+    "Video utility",
+    "▣"
+  ]
+];
 const grid=document.getElementById('project-grid');
 function makeCard(p,index){
- const [name,description,categories,status,stack,url,context,icon]=p;
+ const [name,description,categories,status,stack,url,context,icon,cta]=p;
  const card=document.createElement('article');card.className='project-card'+(index===0?' feature':'');card.dataset.tags=categories;
  const top=document.createElement('div');top.className='card-top';
  const label=document.createElement('span');label.className='meta';label.textContent=String(index+1).padStart(2,'0')+' / '+context.toUpperCase();
@@ -14,11 +154,13 @@ function makeCard(p,index){
  const descriptionEl=document.createElement('p');descriptionEl.textContent=description;card.append(descriptionEl);
  const tags=document.createElement('div');tags.className='tech';stack.split(' · ').forEach(t=>{let s=document.createElement('span');s.textContent=t;tags.append(s)});card.append(tags);
  const bottom=document.createElement('div');bottom.className='card-end';
- if(url){const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='View source ↗';link.setAttribute('aria-label','View source: '+name);bottom.append(link)}
- else {const marker=document.createElement('span');marker.textContent='Source not public yet';bottom.append(marker)}
+ if(url){const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=cta||'View source ↗';link.setAttribute('aria-label','View source: '+name);bottom.append(link)}
+ else {const marker=document.createElement('span');marker.textContent='Details available on request';bottom.append(marker)}
  const field=document.createElement('small');field.textContent=context;bottom.append(field);card.append(bottom);return card;
 }
 projects.forEach((p,i)=>grid.append(makeCard(p,i)));
+const total=document.getElementById('project-total'); if(total) total.textContent=String(projects.length);
+const filterTotal=document.getElementById('filter-total'); if(filterTotal) filterTotal.textContent=String(projects.length);
 const buttons=[...document.querySelectorAll('button[data-filter]')],cards=[...document.querySelectorAll('.project-card')];
 buttons.forEach(b=>b.addEventListener('click',()=>{
  const current=b.dataset.filter;
