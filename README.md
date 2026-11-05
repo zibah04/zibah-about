@@ -1,41 +1,42 @@
-# Hephzibah Momoh — Developer Portfolio
+# Hephzibah Momoh — Developer & Educator
 
-A responsive, accessible single-page portfolio built using **HTML, CSS and vanilla JavaScript**. It highlights software development, full-stack web experience, Windows tools, Android utilities, IT troubleshooting, and teaching.
+An editorial-style personal portfolio for **Hephzibah Onuh Momoh** / **Sol_Sama☀️**.
 
-**Portfolio:** https://zibah04.github.io/zibah-about/ (live only after GitHub Pages completes deployment).
+Live site: https://zibah04.github.io/zibah-about/
 
-## Background and verification
+The site presents actual work without invented metrics or placeholder screenshots. Featured software is distinguished from smaller builds and ideas still on the bench. Content is based on the owner's role-specific CVs and linked GitHub repositories; statuses must be kept accurate.
 
-Updated 5 November 2026 using the owner's general, web-development, software-development, IT helpdesk, and technical-support CVs and the linked GitHub repositories. Education is in progress at Joseph Sarwuan Tarkaa University, Makurdi. The 2025 SIWES attendance system was built and defended at Intercontinental College of Technology, Makurdi. Teaching and Windows troubleshooting experience are included without inventing employment dates, certifications or employers.
+## Design
 
-The portfolio includes **13 projects and concepts**, and carefully distinguishes released betas, prototypes, demos, projects defended without a public repo, and concepts. SolScribe 0.5.0 is a **public unsigned beta**; the Android remote is compiled but requires physical device tests; NGX research and automation prototypes are **not live-trading systems**. Work-in-progress is not represented as production software.
+- Warm paper, ink and terracotta palette, with a dark project section and restrained serif typography.
+- A real-photo-based portrait on the hero, rather than generic abstract artwork.
+- No external font dependencies, CSS frameworks, trackers or backend.
+- Semantic HTML, keyboard focus styles, reduced-motion support and responsive layouts.
+- JavaScript is used only to render and group project metadata.
 
-## Run locally
+### Portrait asset
 
-Open `index.html` in a modern browser. There are no build dependencies, accounts, analytics, or API keys. Google Fonts are optional; system fonts are provided as fallbacks.
+`assets/solsama-portrait.webp` was optimized from an owner-supplied portrait and is an approximately **32 KB, 480 × 600, transparent WebP**. It is publicly included in this repository with the owner's request to feature his image. To update it, replace the file at the same path, preserving the appropriate image format and proportions. Do not publish the original photo set or any EXIF/GPS metadata.
 
-## GitHub Pages deployment using Actions
+## Local preview
 
-The workflow at `.github/workflows/deploy-pages.yml`:
+Open `index.html` in a browser. No build system is needed. The site works as static files.
 
-1. Runs JavaScript syntax and static asset checks.
-2. Builds an isolated static directory with only public website assets.
-3. Uploads a Pages artifact and deploys it.
-4. Runs on relevant commits to `main` or manually from the **Actions** tab.
+## GitHub Pages deployment
 
-**One-time GitHub setting:** Go to this repository's **Settings → Pages → Build and deployment** and choose **GitHub Actions** as the source. The workflow's `configure-pages` step requests enablement, but repository policy may still require this setting or permission from the owner. A successful Actions deployment and an HTTP response from the Pages URL are required before claiming the portfolio is live.
+`.github/workflows/deploy-pages.yml` runs after changes to the website files on `main` or from the Actions tab. It verifies the JavaScript syntax and key site assets, checks the optimized WebP image size and signature, copies only public site files to `_site`, and deploys through GitHub Pages.
 
-The old Jekyll CI workflow is not needed because this is a static HTML/CSS/JS site.
+In the repository **Settings → Pages**, the source must be **GitHub Actions**. Check the latest deployment run and public URL before claiming it is live. The generated site contains the full image asset; it is not fetched from private services.
 
-## Update content
+## Editing
 
-- Edit `script.js` to update featured projects and project status badges.
-- Edit `index.html` to update biography, skills, roles and contact.
-- Edit `style.css` for appearance.
-- Project counts update from the JavaScript source automatically.
+- `index.html` — personal introduction, photo layout, about, experience, contact.
+- `style.css` — responsive visual system.
+- `script.js` — 13 project entries, ordered as **4 featured**, **4 other built projects**, and **5 early ideas**.
+- `assets/solsama-portrait.webp` — optimized head-and-shoulders portrait.
 
-## Privacy
+## Boundaries and privacy
 
-The portfolio intentionally **does not publish a phone number, copies of CVs, student records, home address, or private attendance-system code**. Only professional email, public GitHub and LinkedIn are shown. Avoid publishing identifiable minors' information. Project descriptions are conservative and should be revised as products are actually tested or released.
+Professional contact is via a public email, GitHub and LinkedIn. No personal phone number, full CV, student records or identifying details of minors are published. Never describe proof-of-concept trading tools as production brokerage integrations. Beta downloads and future project statuses are not guarantees of compatibility.
 
 © 2026 Hephzibah Momoh.
