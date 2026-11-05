@@ -1,0 +1,75 @@
+name: Deploy portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "style.css"
+      - "script.js"
+      - "favicon.svg"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax
+        run: node --check script.js
+      - name: Verify source assets and public content
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('index.html').read_text(encoding='utf-8')
+          js = Path('script.js').read_text(encoding='utf-8')
+          for path in ('index.html', 'style.css', 'script.js', 'favicon.svg'):
+              assert Path(path).is_file(), f'Missing asset: {path}'
+          for anchor in ('id="projects"', 'id="about"', 'id="experience"', 'id="contact"'):
+              assert anchor in html, f'Missing section: {anchor}'
+          for link in ('href="style.css"', 'src="script.js"', 'href="favicon.svg"'):
+              assert link in html, f'Missing local reference: {link}'
+          assert 'SolScribe' in js and 'tradeAssist AI' in js
+          assert 'Hephzibah Onuh Momoh' in html
+          assert 'script.js' in html
+          print('Portfolio source checks passed')
+          PY
+      - name: Prepare static output
+        run: |
+          mkdir -p _site
+          cp index.html style.css script.js favicon.svg _site/
+          touch _site/.nojekyll
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
