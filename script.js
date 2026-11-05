@@ -140,32 +140,57 @@ const projects = [
     "▣"
   ]
 ];
-const grid=document.getElementById('project-grid');
-function makeCard(p,index){
- const [name,description,categories,status,stack,url,context,icon,cta]=p;
- const card=document.createElement('article');card.className='project-card'+(index===0?' feature':'');card.dataset.tags=categories;
- const top=document.createElement('div');top.className='card-top';
- const label=document.createElement('span');label.className='meta';label.textContent=String(index+1).padStart(2,'0')+' / '+context.toUpperCase();
- const badge=document.createElement('span');badge.className='badge';badge.textContent=status;top.append(label,badge);card.append(top);
- const art=document.createElement('div');art.className='project-art art-'+index;art.setAttribute('aria-hidden','true');
- const sym=document.createElement('span');sym.className='art-symbol';sym.textContent=icon;
- const cap=document.createElement('span');cap.className='art-caption';cap.textContent=context.toUpperCase();art.append(sym,cap);card.append(art);
- const title=document.createElement('h3');title.textContent=name;card.append(title);
- const descriptionEl=document.createElement('p');descriptionEl.textContent=description;card.append(descriptionEl);
- const tags=document.createElement('div');tags.className='tech';stack.split(' · ').forEach(t=>{let s=document.createElement('span');s.textContent=t;tags.append(s)});card.append(tags);
- const bottom=document.createElement('div');bottom.className='card-end';
- if(url){const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=cta||'View source ↗';link.setAttribute('aria-label','View source: '+name);bottom.append(link)}
- else {const marker=document.createElement('span');marker.textContent='Details available on request';bottom.append(marker)}
- const field=document.createElement('small');field.textContent=context;bottom.append(field);card.append(bottom);return card;
+// Render from real project metadata. Statuses and URLs are intentionally conservative.
+const featured = document.getElementById('featured-projects');
+const more = document.getElementById('more-projects');
+const ideas = document.getElementById('ideas-list');
+function el(tag, className, value) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (value !== undefined) node.textContent = value;
+  return node;
 }
-projects.forEach((p,i)=>grid.append(makeCard(p,i)));
-const total=document.getElementById('project-total'); if(total) total.textContent=String(projects.length);
-const filterTotal=document.getElementById('filter-total'); if(filterTotal) filterTotal.textContent=String(projects.length);
-const buttons=[...document.querySelectorAll('button[data-filter]')],cards=[...document.querySelectorAll('.project-card')];
-buttons.forEach(b=>b.addEventListener('click',()=>{
- const current=b.dataset.filter;
- buttons.forEach(other=>{const active=other===b;other.classList.toggle('active',active);other.setAttribute('aria-pressed',String(active))});
- let visible=0;cards.forEach(card=>{const show=current==='all'||card.dataset.tags.split(' ').includes(current);card.hidden=!show;if(show)visible++});
- document.getElementById('no-results').hidden=visible>0;
-}));
-document.getElementById('current-year').textContent=String(new Date().getFullYear());
+function externalLink(url, text, name) {
+  const anchor = el('a', '', text);
+  anchor.href = url;
+  anchor.rel = 'noopener noreferrer';
+  anchor.target = '_blank';
+  anchor.setAttribute('aria-label', text + ': ' + name);
+  return anchor;
+}
+function featuredCard(p, index) {
+  const [name, description, categories, status, stack, url, context, icon, cta] = p;
+  const article = el('article', 'project-card');
+  const top = el('div', 'project-top');
+  top.append(el('span', 'project-number', String(index+1).padStart(2,'0') + ' / 13'), el('span', 'project-status', status));
+  article.append(top, el('p', 'project-category', context), el('h3', '', name), el('p', 'description', description));
+  article.append(el('div', 'project-stack', stack));
+  const bottom = el('div', 'project-bottom');
+  bottom.append(url ? externalLink(url, cta || 'View project ↗', name) : el('span', 'no-link', 'Details on request'));
+  bottom.append(el('span', 'project-context', categories.includes('product') ? 'PRODUCT / DEVELOPMENT' : 'SOFTWARE'));
+  article.append(bottom);
+  return article;
+}
+function compactCard(p, index) {
+  const [name, description, categories, status, stack, url, context, icon, cta] = p;
+  const article = el('article', 'compact-project');
+  const copy = el('div');
+  copy.append(el('div', 'project-meta', String(index+1).padStart(2,'0') + ' / ' + status));
+  copy.append(el('h4', '', name), el('p', '', description));
+  article.append(copy, url ? externalLink(url,'↗',name) : el('span', '', '—'));
+  return article;
+}
+function ideaCard(p, index) {
+  const [name, description, categories, status] = p;
+  const article = el('article', 'idea');
+  article.append(el('span', 'ideas-number', String(index+1).padStart(2,'0')));
+  const copy = el('div');
+  copy.append(el('h3', '', name), el('p', '', description), el('p', 'idea-status', status.toUpperCase()));
+  article.append(copy);
+  return article;
+}
+projects.slice(0,4).forEach((p,i) => featured.append(featuredCard(p,i)));
+projects.slice(4,8).forEach((p,i) => more.append(compactCard(p,i+4)));
+projects.slice(8).forEach((p,i) => ideas.append(ideaCard(p,i+8)));
+const year = document.getElementById('current-year');
+if (year) year.textContent = String(new Date().getFullYear());
