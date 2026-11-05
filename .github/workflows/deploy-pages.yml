@@ -78,3 +78,23 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify public site and portrait
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          echo "GitHub Pages reported: ${SITE_URL}"
+          # Give the Pages CDN a brief chance to expose the newest deployment.
+          for attempt in 1 2 3 4 5 6 7 8; do
+            if curl -fsSL --connect-timeout 10 --max-time 20 -o /tmp/portfolio.html "${SITE_URL}" &&
+               grep -q "Hephzibah" /tmp/portfolio.html &&
+               curl -fsSL --connect-timeout 10 --max-time 20 -o /tmp/portrait.webp "${SITE_URL}assets/solsama-portrait.webp" &&
+               python3 -c "from pathlib import Path; b=Path('/tmp/portrait.webp').read_bytes(); assert b[:4]==b'RIFF' and b[8:12]==b'WEBP'"; then
+              echo "Public homepage and portrait are reachable over HTTPS."
+              exit 0
+            fi
+            echo "Public check attempt ${attempt}/8 did not pass."
+            sleep 5
+          done
+          echo "::error::GitHub Pages deployment reported success, but the public URL or portrait could not be reached."
+          exit 1
