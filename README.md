@@ -4,6 +4,8 @@ An editorial-style personal portfolio for **Hephzibah Onuh Momoh** / **Sol_Samaâ
 
 Live site: https://zibah04.github.io/zibah-about/
 
+**[Browse the audited GitHub project catalog](PROJECT_CATALOG.md)** â€” source repositories, download/build availability, privacy status, and remaining release tasks (updated 6 November 2026).
+
 The site presents actual work without invented metrics or placeholder screenshots. Featured software is distinguished from smaller builds and ideas still on the bench. Content is based on the owner's role-specific CVs and linked GitHub repositories; statuses must be kept accurate.
 
 ## Design
